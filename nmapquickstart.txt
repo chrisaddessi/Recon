@@ -1,0 +1,69 @@
+https://www.varonis.com/blog/nmap-commands/#:~:text=Finally%2C%20you%20can%20speed%20up%20your%20Nmap%20scans,above%2C%20add%20-n%3A%20%23%20nmap%20-sp%20-n%20192.100.1.1%2F24
+namp -Pn -sS -sU -T4 -A -v 192.168.1.5
+-sn is quick scan
+
+
+#quick
+sudo nmap -e tun0 -p* -sC -sV -sS -A -v -Pn -oX nmap_initial.xml 10.10.6.22 -oN nmap_initial.txt
+
+
+Stealth
+https://www.ethicalhackx.com/nmap-a-stealth-port-scanner-3/
+-sT
+-sS half open scanning
+
+-sl zombie scan ip must be specified Cheap routers or MS Windows boxes make good zombie hosts.
+
+
+scan for fire wall
+nmap -sA 192.168.1.5 --resason
+-sA send ack probe 
+scans 1000 comman ports
+
+scan for unusual port
+-sV
+
+nmap -sA 192.168.1.5 -p 22 --resason 
+unfilterd == no firewall
+filterd means firewall no response from target
+
+GET MAC
+nmap -sP -n
+nmap -p 80 -T4 -d -v -n -Pn --script snmp-interfaces 172.16.8.3
+
+EVADE firewall
+hot got to:
+nmap -n –data-length 200 -sS -sU -T1 -D 192.168.1.101,192.168.1.102,192.168.1.103,192.168.1.23 192.168.1.1 target
+nmap -sS -sU -T2 -D RND:3 -v ip
+
+Decoy Concept
+make your scan look like it is coming from another address
+nmap -sS -SV -F -T2 -D RND:3 nmap.scanme.org
+-D is decoy
+use RND:5 or RND:2 or specific ip
+
+Packet Fragmentation
+break packet down into pieces not good for now days
+no notes
+
+output
+nmap -oN </path/filename.txt> 192.168.1.25
+
+ssh brute force
+nmap -v 67.225.133.11 -D RND:9 -p 22 --script ssh-brute --script-args userdb=users.txt,passdb=passwords.txt -oN bruteshh.txt
+
+
+HOST DISCOVERY
+nmap -sn 192.168.0.0/24
+
+SPEED things UP
+-n
+
+From file txt
+db_nmap -T3 -sS -sV -p- -v -n -iL UpdateHostsIPList/WorkingFolder/UPDATE/HOSTS_IP.txt
+
+
+db_nmap -v -T3 -Pn -sS -sV -p- 172.21.6.105
+
+nmap -e <INTERFACE> scanme.nmap.org
+

