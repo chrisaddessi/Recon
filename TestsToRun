@@ -9,7 +9,7 @@
 #look at time to login
 
 #CUSTOM TOOLS
-##CURL
+## "CURL"
 ### Send Custom Request: look at the request in the network tab of inspect and copy the request type and body
 ### curl -X POST [options] [URL]
 ### -X option specifies the request method
@@ -30,40 +30,40 @@ Some things to keep an eye out for:
 	custom .js on a login page
 
 
-searchsploit:
+"searchsploit":
 	searchsploit --nmap nmap_initial.xml
 
-dimtry: gives ip like a whois
+"dimtry": gives ip like a whois
 	dmitry -o dmitryscan list.wordpress.org
 
-dnsdumpster.com
+"dns""dumpster".com
 
-amass: gives subdomains by looking on other search engines and webpages
+"amass": gives subdomains by looking on other search engines and webpages
 	amass enum -v -src -ip -brute -min-for-recursive 2 -d 205.71.71.119
 	amass enum -d clearpass.limestone.edu -ip 
 	
-masscan:
+"masscan":
 	masscon 0.0.0.0/0 --ports 0-65535 --rate 30000000000 --exclude 255.255.255.255 >>masscan.txt
 	masscan 172.16.8.3 --ports 0-65535 --rate 30000 --exclude 255.255.255>>massan.txt
 
-gobuster: brute force directory enumeration
+"gobuster": brute force directory enumeration
 	gobuster dir -u http://10.10.86.235 -w /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt -o gobuster.txt
 
-dirb: (directory buster terminal version) looks for directory extensions
+"dirb": (directory buster terminal version) looks for directory extensions
 	dirb https://wordpress.org -o dirbscan.txt
 
-dirbuster
+"dirbuster"
 	put in ip http://ip:80/
 
-nikto: *not stealthy* scans webservers for possible vulns gives ip and port "you can change it" tells you root page redirect
+"nikto": *not stealthy* scans webservers for possible vulns gives ip and port "you can change it" tells you root page redirect
 	nikto -h wordpress.org -o nikto_scan.txt
 	nikto -h 10.10.81.155 -p 3333 -o niktoscan.txt
-nmap
+"nmap":
 	nmap -Pn -s
 	nmap -sS -T2 172.16.8.3
-ZAP: similar to burp but way more automation run ZAP GUI
+"ZAP": similar to burp but way more automation run ZAP GUI
 	
-wapiti: get possible exploits on webpage
+"wapiti": get possible exploits on webpage
 	wapiti -u https://clearpass.limestone.edu/tips/tipsLogin.action -o pathtosave
 	wapiti -u http://10.10.86.235/ -o wapitiscan
 
@@ -73,7 +73,7 @@ Recon-ng
 
 
 
-"jSQL" injection:
+"jSQL" "injection":
 	jsql
 	paste http://blogs.bulls.com/
 	click admin page
@@ -88,24 +88,24 @@ Recon-ng
 
 
 
-httrack: tracks all the content in the webpage maybe injectable USED TO COPY WEBPAGE
+"httrack": tracks all the content in the webpage maybe injectable USED TO COPY WEBPAGE
 	httrack http://blogs.bull.com
 
-joomscan: for joomla cms
+"joomscan": for joomla cms
 	joomscan -u wordpress.org
 
 wig (Webapp Information gatherer) 
-skipfish
-dnsenum
+"skipfish"
+"dnsenum"
 certstream
 
-Extract potential emails:
+Extract potential "email"s:
 	sudo python3 /media/sf_SharedFolder/Recon/EmailSpider.py
 	wget -q -r -l 5 -O - http://somesite.com/ | grep -E -o "\b[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]+\b"
 	wget -q -r -l 5 -O - http://10.10.6.135/ | grep -E -o "\b[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+\.[a-zA-Z0-9.-]+\b"
 
 
-metagoofil: extract files from webpages
+"metagoofil": extract files from webpages
 	metagoofil -d wordpress.org -t pdf,doc,xls,ppt,ods,docx,xlsx,pptx,txt,sql -l 500 -n 100000 -o wordpressfiles -f wordpressresults2.html
 
 
